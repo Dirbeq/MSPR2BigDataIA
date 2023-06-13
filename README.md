@@ -10,9 +10,13 @@
 python3 -m venv venv
 ```
 ### 1.2. Installation
-* Activer l'environnement virtuel avec
+* Activer l'environnement virtuel , sur linux
 ```bash
 source venv/bin/activate
+```
+* Sur windows
+```bash
+venv\Scripts\activate.bat
 ```
 
 * Installer les dépendances avec
