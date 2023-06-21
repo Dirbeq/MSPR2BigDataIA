@@ -1,4 +1,4 @@
-# MSPR 3 Big data et AI aka analyse de données
+# MSPR 2 Big data et AI aka analyse de données
 
 ## 1. Utilisation
 ### 1.1. Prérequis
