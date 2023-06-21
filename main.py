@@ -1,27 +1,59 @@
-import pandas as pd
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
+import pandas
+import numpy
+import tensorflow as tf
+from tensorflow import keras
+from tensorflow.keras import layers
+from tensorflow.keras.layers.experimental import preprocessing
 
-# Charger les données à partir du fichier CSV
-data = pd.read_csv('./data/data.csv')
 
-# Diviser les données en fonction des caractéristiques (X) et de la variable cible (y)
-X = data.iloc[:, :-1]  # Sélectionner toutes les colonnes sauf la dernière
-y = data.iloc[:, -1]   # Sélectionner la dernière colonne
+# Read the data from the csv file
+data_brut = pandas.read_csv("./data/Data1.csv", on_bad_lines='skip', sep=";", index_col=0)
+print("Data loaded")
 
-# Diviser les données en ensembles d'entraînement et de test
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+# The goal is to predict collumn "Nom" based on the other collumns
+# So we remove the column "Nom" from the data and store it in a variable
 
-# Créer un modèle Random Forest Classifier
-model = RandomForestClassifier()
+labels = data_brut.pop("N°Panneau").astype(float)
+print("Labels loaded")
 
-# Entraîner le modèle avec les données d'entraînement
-model.fit(X_train, y_train)
+# We create a model with 3 layers
+# The first layer is a normalization layer
+def build_and_compile_model(norm):
+    model = keras.Sequential([
+        norm,
+        layers.Dense(64, activation='relu'),
+        layers.Dense(64, activation='relu'),
+        layers.Dense(1)
+    ])
 
-# Faire des prédictions sur les données de test
-y_pred = model.predict(X_test)
+    # We compile the model with the adam optimizer and the mean squared error as loss function
+    model.compile(loss='mean_absolute_error',
+                  optimizer=tf.keras.optimizers.Adam(0.001))
+    return model
 
-# Calculer l'exactitude
-accuracy = accuracy_score(y_test, y_pred)
-print("Exactitude :", accuracy)
+# We create a normalization layer
+normalizer = preprocessing.Normalization()
+print("Normalization layer created")
+
+# Select data for training ,Code de la circonscription, % Abs/Ins
+data = data_brut[["Code de la circonscription", "% Abs/Ins"]]
+print("Data selected")
+
+# We adapt the normalization layer to the data
+normalizer.adapt(numpy.array(data))
+print("Normalization layer adapted")
+
+# We create the model
+dnn_model = build_and_compile_model(normalizer)
+print("Model created")
+
+# We train the model with 20 epochs
+history = dnn_model.fit(
+    data, labels,
+    validation_split=0.2,
+    verbose=1, epochs=10)
+print("Model trained")
+
+
+# Save the model
+dnn_model.save("./model/model.h5")
