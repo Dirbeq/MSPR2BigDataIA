@@ -6,14 +6,11 @@ from tensorflow.keras.layers import Dense
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.metrics import RootMeanSquaredError
 
-# Charger les données à partir du fichier CSV
-datad = pd.read_csv('../data/Data1.csv', on_bad_lines='skip', sep=";", index_col=0)
 
-
-def reso_de_neuron(data=datad):
+def reso_de_neuron(data=None, x_data_names=None, y_data_names=None):
     # Diviser les données en caractéristiques (X) et étiquettes (y)
-    X = data[['Code de la circonscription', '% Abs/Ins']]
-    y = data['N°Panneau']
+    X = data[x_data_names]
+    y = data[y_data_names]
 
     # Normaliser les caractéristiques
     scaler = StandardScaler()

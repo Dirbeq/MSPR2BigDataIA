@@ -5,16 +5,12 @@ from tensorflow import keras
 from tensorflow.keras import layers
 from tensorflow.keras.layers.experimental import preprocessing
 
-# Read the data from the csv file
-data_brutd = pandas.read_csv("./data/Data1.csv", on_bad_lines='skip', sep=";", index_col=0)
-print("Data loaded")
 
-
-def jsp(data_brut=data_brutd):
+def jsp(data_brut=None, x_data_names=None, y_data_names=None):
     # The goal is to predict collumn "Nom" based on the other collumns
     # So we remove the column "Nom" from the data and store it in a variable
 
-    labels = data_brut.pop("N°Panneau").astype(float)
+    labels = data_brut[y_data_names]
     print("Labels loaded")
 
     # We create a model with 3 layers
@@ -37,7 +33,7 @@ def jsp(data_brut=data_brutd):
     print("Normalization layer created")
 
     # Select data for training ,Code de la circonscription, % Abs/Ins
-    data = data_brut[["Code de la circonscription", "% Abs/Ins"]]
+    data = data_brut[x_data_names]
     print("Data selected")
 
     # We adapt the normalization layer to the data

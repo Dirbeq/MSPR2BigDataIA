@@ -1,14 +1,11 @@
 import pandas as pd
 from sklearn.ensemble import IsolationForest
 
-# Charger les données à partir du fichier CSV
-datad = pd.read_csv('../data/Data1.csv',on_bad_lines='skip', sep=";", index_col=0)
 
-
-def isolation_forest(data=datad):
+def isolation_forest(data=None, x_data_names=None, y_data_names=None):
     # Diviser les données en caractéristiques (X) et étiquettes (y)
-    X = data[['Code de la circonscription', '% Abs/Ins']]
-    y = data['N°Panneau']
+    X = data[x_data_names]
+    y = data[y_data_names]
 
     # Créer le modèle Isolation Forest
     model = IsolationForest(n_estimators=100, random_state=42)

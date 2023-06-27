@@ -3,13 +3,11 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import SGDRegressor
 from sklearn.metrics import mean_squared_error
 
-# Charger les données à partir du fichier CSV
-datad = pd.read_csv('../data/Data1.csv',on_bad_lines='skip', sep=";", index_col=0)
 
-def regression_lineaire(data=datad):
+def regression_lineaire(data=None, x_data_names=None, y_data_names=None):
     # Diviser les données en caractéristiques (X) et étiquettes (y)
-    X = data[['Code de la circonscription', '% Abs/Ins']]
-    y = data['N°Panneau']
+    X = data[x_data_names]
+    y = data[y_data_names]
 
     # Diviser les données en jeux d'entraînement et de test
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -30,7 +28,7 @@ def regression_lineaire(data=datad):
     # Calculer l'erreur quadratique moyenne (RMSE)
     rmse = mean_squared_error(y_test, y_pred, squared=False)
     print(f"RMSE du modèle : {rmse}")
-    
+
     # Accuracy
     accuracy = model.score(X_test, y_test)
     print(f"Précision du modèle : {accuracy}")
