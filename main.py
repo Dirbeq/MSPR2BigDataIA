@@ -1,9 +1,10 @@
+import pandas as pd
+
 from Test.IsolationForest import isolation_forest
+from Test.LogisticRegression import logistic_regression
 from Test.RegressionLineaire import regression_lineaire
-from Test.test1 import logistic_regression
 from Test.SVM import svm
 from Test.jsp import jsp
-import pandas as pd
 
 data = pd.read_csv('./data/data.csv', on_bad_lines='skip', sep=",", index_col=1)
 x_data_names = data[['Médiane du niveau de vie 2020', 'Taux de chômage annuel moyen 2022', 'Taux de pauvreté 2020',

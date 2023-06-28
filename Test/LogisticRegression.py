@@ -1,10 +1,10 @@
 import pandas as pd
-from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
 from tqdm import tqdm
 
 
-def logistic_regression(data=None, x_data_names=None, y_data_names=None):
+def logistic_regression(x_data_names=None, y_data_names=None):
     print("----------------------- Régression logistique -----------------------")
     # Diviser les données en caractéristiques (X) et étiquettes (y)
     X = x_data_names
