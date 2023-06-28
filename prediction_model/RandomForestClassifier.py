@@ -32,7 +32,7 @@ def random_forest_classifier(x_data_names=None, y_data_names=None):
     predictions = model.predict(new_data)
 
     # Calculer l'accuracy sur les nouvelles données
-    accuracy = accuracy_score([0, 1], predictions)  # Remplacez [0, 1] par les véritables étiquettes si connues
+    accuracy = accuracy_score([0, 2], predictions)  # Remplacez [0, 1] par les véritables étiquettes si connues
     print(f"Précision du modèle sur de nouvelles valeurs : {accuracy}")
 
     print("----------------------- Fin du Random Forest Classifier -----------------------")

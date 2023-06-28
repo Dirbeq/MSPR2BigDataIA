@@ -1,6 +1,6 @@
 import pandas as pd
 from sklearn.linear_model import SGDRegressor
-from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_squared_error, accuracy_score
 from sklearn.model_selection import train_test_split
 
 
@@ -39,9 +39,10 @@ def regression_lineaire(x_data_names=None, y_data_names=None):
                             columns=['Médiane du niveau de vie 2020', 'Taux de chômage annuel moyen 2022',
                                      'Taux de pauvreté 2020',
                                      'Coups et blessures volontaires (taux) 2022'])
-    print("Prédiction sur de nouvelles valeurs...")
     predictions = model.predict(new_data)
-    print("Prédiction terminée.")
     print(f"Prédictions : {predictions}")
+    # Calculer l'accuracy sur les nouvelles données
+    accuracy = accuracy_score([0, 2], predictions)  # Remplacez [0, 1] par les véritables étiquettes si connues
+    print(f"Précision du modèle sur de nouvelles valeurs : {accuracy}")
 
     print("----------------------- Fin régression linéaire -----------------------")

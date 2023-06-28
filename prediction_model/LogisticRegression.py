@@ -1,5 +1,6 @@
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 
 
@@ -28,5 +29,8 @@ def logistic_regression(x_data_names=None, y_data_names=None):
                                      'Coups et blessures volontaires (taux) 2022'])
     predictions = model.predict(new_data)
     print(f"Prédictions : {predictions}")
+    # Calculer l'accuracy sur les nouvelles données
+    accuracy = accuracy_score([0, 2], predictions)  # Remplacez [0, 1] par les véritables étiquettes si connues
+    print(f"Précision du modèle sur de nouvelles valeurs : {accuracy}")
 
     print("----------------------- Fin régression logistique -----------------------")
