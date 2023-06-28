@@ -1,7 +1,6 @@
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
-from tqdm import tqdm
 
 
 def logistic_regression(x_data_names=None, y_data_names=None):
@@ -14,15 +13,9 @@ def logistic_regression(x_data_names=None, y_data_names=None):
     x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
     # Créer le modèle
-    model = LogisticRegression()
+    model = LogisticRegression(max_iter=300)
 
-    # Spécifier le nombre d'époques
-    num_epochs = 10
-    print(f"Nombre d'époques : {num_epochs}")
-
-    # Entraîner le modèle sur les données d'entraînement avec le nombre d'époques spécifié
-    for epoch in tqdm(range(num_epochs)):
-        model.fit(x_train, y_train)
+    model.fit(x_train, y_train)
 
     # Évaluer la précision du modèle sur les données de test
     accuracy = model.score(x_test, y_test)
