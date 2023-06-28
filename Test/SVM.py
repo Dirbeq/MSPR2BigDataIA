@@ -4,13 +4,14 @@ from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score
 
 
-def svm(data=None, x_data_names=None, y_data_names=None):
+def svm(x_data_names=None, y_data_names=None):
+    print("----------------------- SVM -----------------------")
     # Diviser les données en caractéristiques (X) et étiquettes (y)
-    X = data[x_data_names]
-    y = data[y_data_names]
+    X = x_data_names
+    y = y_data_names
 
     # Diviser les données en jeux d'entraînement et de test
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
     # Spécifier le paramètre verbose
     verbose = True
@@ -21,11 +22,11 @@ def svm(data=None, x_data_names=None, y_data_names=None):
 
     # Entraîner le modèle sur les données d'entraînement
     print("Entraînement du modèle SVM")
-    model.fit(X_train, y_train)
+    model.fit(x_train, y_train)
 
     # Faire des prédictions sur les données de test
     print("Prédictions sur les données de test")
-    y_pred = model.predict(X_test)
+    y_pred = model.predict(x_test)
 
     # Calculer la précision du modèle
     print("Calcul de la précision du modèle")
@@ -33,6 +34,11 @@ def svm(data=None, x_data_names=None, y_data_names=None):
     print(f"Précision du modèle : {accuracy}")
 
     # Prédire de nouvelles valeurs
-    new_data = pd.DataFrame([[26080, 12.2], [75078, 23.8]], columns=['Code de la circonscription', '% Abs/Ins'])
+    new_data = pd.DataFrame([[10990, 13.1, 52.9, 9.9], [24030, 5.5, 10.5, 3.4]],
+                            columns=['Médiane du niveau de vie 2020', 'Taux de chômage annuel moyen 2022',
+                                     'Taux de pauvreté 2020',
+                                     'Coups et blessures volontaires (taux) 2022'])
     predictions = model.predict(new_data)
     print(f"Prédictions : {predictions}")
+
+    print("----------------------- Fin SVM -----------------------")

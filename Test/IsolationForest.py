@@ -2,10 +2,11 @@ import pandas as pd
 from sklearn.ensemble import IsolationForest
 
 
-def isolation_forest(data=None, x_data_names=None, y_data_names=None):
+def isolation_forest(x_data_names=None, y_data_names=None):
+    print("----------------------- Isolation Forest -----------------------")
     # Diviser les données en caractéristiques (X) et étiquettes (y)
-    X = data[x_data_names]
-    y = data[y_data_names]
+    X = x_data_names
+    y = y_data_names
 
     # Créer le modèle Isolation Forest
     model = IsolationForest(n_estimators=100, random_state=42)
@@ -17,16 +18,19 @@ def isolation_forest(data=None, x_data_names=None, y_data_names=None):
     # Prédire les anomalies sur les données d'entraînement
     y_pred_train = model.predict(X)
 
-    # Accuracy
-    accuracy = model.score(X, y)
+    # Accuracy for Isolation Forest
+    accuracy = list(y_pred_train).count(1) / y_pred_train.shape[0]
     print(f"Précision du modèle : {accuracy}")
 
     # Prédire les anomalies sur de nouvelles données
-    new_data = pd.DataFrame([[1, 75.2], [2, 65.8]], columns=['Code de la circonscription', '% Abs/Ins'])
+    new_data = pd.DataFrame([[10990,13.1,52.9,9.9], [24030,5.5,10.5,3.4]],
+                            columns=['Médiane du niveau de vie 2020', 'Taux de chômage annuel moyen 2022',
+                                     'Taux de pauvreté 2020',
+                                     'Coups et blessures volontaires (taux) 2022'])
     print("Prédiction sur de nouvelles valeurs...")
-    y_pred_new = model.predict(new_data)
+    predictions = model.predict(new_data)
+    # Accuracy for Isolation Forest
+    accuracy = list(predictions).count(1) / predictions.shape[0]
+    print(f"Précision du modèle : {accuracy}")
 
-    print("Prédictions sur les données d'entraînement:")
-    print(y_pred_train)
-    print("Prédictions sur les nouvelles données:")
-    print(y_pred_new)
+    print("----------------------- Fin de l'Isolation Forest -----------------------")

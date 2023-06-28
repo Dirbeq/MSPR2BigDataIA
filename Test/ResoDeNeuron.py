@@ -7,17 +7,18 @@ from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.metrics import RootMeanSquaredError
 
 
-def reso_de_neuron(data=None, x_data_names=None, y_data_names=None):
+def reso_de_neuron(x_data_names=None, y_data_names=None):
+    print("----------------------- Réseau de neurones -----------------------")
     # Diviser les données en caractéristiques (X) et étiquettes (y)
-    X = data[x_data_names]
-    y = data[y_data_names]
+    X = x_data_names
+    y = y_data_names
 
     # Normaliser les caractéristiques
     scaler = StandardScaler()
-    X_scaled = scaler.fit_transform(X)
+    x_scaled = scaler.fit_transform(X)
 
     # Diviser les données en jeux d'entraînement et de test
-    X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
+    x_train, x_test, y_train, y_test = train_test_split(x_scaled, y, test_size=0.2, random_state=42)
 
     # Créer le modèle de réseau de neurones
     model = Sequential()
@@ -29,18 +30,23 @@ def reso_de_neuron(data=None, x_data_names=None, y_data_names=None):
     model.compile(optimizer=Adam(), loss='mse', metrics=[RootMeanSquaredError()])
 
     # Entraîner le modèle sur les données d'entraînement
-    model.fit(X_train, y_train, epochs=10, verbose=1)
+    model.fit(x_train, y_train, epochs=10, verbose=1)
 
     # Évaluer le modèle sur les données de test
-    loss, rmse = model.evaluate(X_test, y_test, verbose=0)
+    loss, rmse = model.evaluate(x_test, y_test, verbose=0)
     print(f"Loss: {loss}, RMSE: {rmse}")
 
     # Accuracy
-    accuracy = model.score(X_test, y_test)
+    accuracy = model.score(x_test, y_test)
     print(f"Précision du modèle : {accuracy}")
 
     # Prédire de nouvelles valeurs
-    new_data = pd.DataFrame([[26080, 12.2], [75078, 23.8]], columns=['Code de la circonscription', '% Abs/Ins'])
+    new_data = pd.DataFrame([[10990, 13.1, 52.9, 9.9], [24030, 5.5, 10.5, 3.4]],
+                            columns=['Médiane du niveau de vie 2020', 'Taux de chômage annuel moyen 2022',
+                                     'Taux de pauvreté 2020',
+                                     'Coups et blessures volontaires (taux) 2022'])
     new_data_scaled = scaler.transform(new_data)
     predictions = model.predict(new_data_scaled)
     print(f"Prédictions : {predictions.flatten()}")
+
+    print("----------------------- Fin réseau de neurones -----------------------")
