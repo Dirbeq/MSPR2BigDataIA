@@ -1,4 +1,3 @@
-import pandas
 import numpy
 import tensorflow as tf
 from tensorflow import keras

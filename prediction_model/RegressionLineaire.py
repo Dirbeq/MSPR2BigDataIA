@@ -1,7 +1,7 @@
 import pandas as pd
-from sklearn.model_selection import train_test_split
 from sklearn.linear_model import SGDRegressor
 from sklearn.metrics import mean_squared_error
+from sklearn.model_selection import train_test_split
 
 
 def regression_lineaire(x_data_names=None, y_data_names=None):
