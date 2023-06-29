@@ -1,4 +1,3 @@
-import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
@@ -37,17 +36,5 @@ def random_forest_classifier(x_data_names=None, y_data_names=None):
     # Calculer l'accuracy sur l'ensemble de test
     accuracy_test = accuracy_score(y_test, y_pred_test)
     print(f"Précision du modèle sur l'ensemble de test : {accuracy_test}")
-
-    # Prédire les étiquettes sur de nouvelles données
-    new_data = pd.DataFrame([[10990, 13.1, 52.9, 9.9], [24030, 5.5, 10.5, 3.4]],
-                            columns=['Médiane du niveau de vie 2020', 'Taux de chômage annuel moyen 2022',
-                                     'Taux de pauvreté 2020',
-                                     'Coups et blessures volontaires (taux) 2022'])
-    print("Prédiction sur de nouvelles valeurs...")
-    predictions = model.predict(new_data)
-
-    # Calculer l'accuracy sur les nouvelles données
-    accuracy_new_data = accuracy_score([0, 2], predictions)  # Remplacez [0, 2] par les véritables étiquettes si connues
-    print(f"Précision du modèle sur de nouvelles valeurs : {accuracy_new_data}")
 
     print("----------------------- Fin du Random Forest Classifier -----------------------")
