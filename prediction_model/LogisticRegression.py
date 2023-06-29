@@ -1,4 +1,5 @@
 from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 
 
@@ -16,8 +17,19 @@ def logistic_regression(x_data_names=None, y_data_names=None):
 
     model.fit(x_train, y_train)
 
-    # Évaluer la précision du modèle sur les données de test
-    accuracy = model.score(x_test, y_test)
-    print(f"Précision du modèle : {accuracy}")
+    # Prédire les étiquettes sur l'ensemble d'entraînement
+    y_pred_train = model.predict(x_train)
 
-    print("----------------------- Fin régression logistique -----------------------")
+    # Calculer l'accuracy sur l'ensemble d'entraînement
+    accuracy_train = accuracy_score(y_train, y_pred_train)
+    print(f"Précision du modèle sur l'ensemble d'entraînement : {accuracy_train}")
+
+    # Prédire les étiquettes sur l'ensemble de test
+    y_pred_test = model.predict(x_test)
+
+    # Calculer l'accuracy sur l'ensemble de test
+    accuracy_test = accuracy_score(y_test, y_pred_test)
+    print(f"Précision du modèle sur l'ensemble de test : {accuracy_test}")
+
+
+print("----------------------- Fin régression logistique -----------------------")
