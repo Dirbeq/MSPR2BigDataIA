@@ -1,23 +1,28 @@
-from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
+import matplotlib.pyplot as plt
+from sklearn.metrics import ConfusionMatrixDisplay, confusion_matrix
+from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_score
 
 
-def calculate_scores(x, y):
-    # Calculer la matrice de confusion
-    confusion_matrix = confusion_matrix(x, y)
-    print(f"Matrice de confusion : \n{confusion_matrix}")
+def calculate_scores(y_true, y_pred, labels, model_name):
+    print('Accuracy: {}'.format(round(accuracy_score(y_true, y_pred), 2)))
+    print('Precision: {}'.format(round(precision_score(y_true, y_pred, average='weighted', zero_division=0), 2)))
+    print('Recall: {}'.format(round(recall_score(y_true, y_pred, average='weighted', zero_division=0), 2)))
+    print('F1 score: {}'.format(round(f1_score(y_true, y_pred, average='weighted', zero_division=0), 2)))
+    if model_name != "SGDRegressor":
+        plot_confusion_matrix(y_true, y_pred, labels, model_name)
 
-    # Calculer la précision
-    precision = precision_score(x, y)
-    print(f"Précision : {precision}")
 
-    # Calculer le rappel
-    recall = recall_score(x, y)
-    print(f"Rappel : {recall}")
+def plot_confusion_matrix(y_true, y_pred, labels, model_name):
+    cm = confusion_matrix(y_true, y_pred)
+    _, ax = plt.subplots(figsize=(4, 4))
+    disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=labels)
+    disp.plot(cmap="Blues", values_format=".2f", ax=ax, colorbar=False)
+    plt.title("Confusion matrix for " + model_name)
+    plt.show()
 
-    # Calculer le score F1
-    f1 = f1_score(x, y)
-    print(f"Score F1 : {f1}")
-
-    # Calculer l'accuracy
-    accuracy = accuracy_score(x, y)
-    print(f"Accuracy : {accuracy}")
+    cm = confusion_matrix(y_true, y_pred, normalize="true")
+    _, ax = plt.subplots(figsize=(4, 4))
+    disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=labels)
+    disp.plot(cmap="Blues", values_format=".2f", ax=ax, colorbar=False)
+    plt.title("Normalized confusion matrix for " + model_name)
+    plt.show()
