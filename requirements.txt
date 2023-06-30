@@ -50,3 +50,5 @@ urllib3==1.26.16
 Werkzeug==2.3.6
 wheel==0.38.4
 wrapt==1.14.1
+
+matplotlib~=3.7.1

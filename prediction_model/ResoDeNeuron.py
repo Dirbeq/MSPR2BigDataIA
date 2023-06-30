@@ -6,11 +6,11 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.optimizers import Adam
 
 
-def reso_de_neuron(x_data_names=None, y_data_names=None):
+def reso_de_neuron(x_data=None, y_data=None):
     print("----------------------- Réseau de neurones -----------------------")
     # Diviser les données en caractéristiques (X) et étiquettes (y)
-    X = x_data_names
-    y = y_data_names
+    X = x_data
+    y = y_data
 
     # Normaliser les caractéristiques
     scaler = StandardScaler()
@@ -29,14 +29,11 @@ def reso_de_neuron(x_data_names=None, y_data_names=None):
     model.compile(optimizer=Adam(), loss='mse', metrics=[RootMeanSquaredError()])
 
     # Entraîner le modèle sur les données d'entraînement
-    model.fit(x_train, y_train, epochs=10, verbose=1)
+    print("Entraînement du modèle...")
+    model.fit(x_train, y_train, epochs=10, verbose=0)
 
     # Évaluer le modèle sur les données de test
     loss, rmse = model.evaluate(x_test, y_test, verbose=0)
     print(f"Loss: {loss}, RMSE: {rmse}")
-
-    # Accuracy
-    accuracy = model.score(x_test, y_test)
-    print(f"Précision du modèle : {accuracy}")
 
     print("----------------------- Fin réseau de neurones -----------------------")

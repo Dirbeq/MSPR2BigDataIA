@@ -5,12 +5,12 @@ from tensorflow.keras import layers
 from tensorflow.keras.layers.experimental import preprocessing
 
 
-def jsp(x_data_names=None, y_data_names=None):
+def jsp(x_data=None, y_data=None):
     print("----------------------- jsp -----------------------")
     # The goal is to predict collumn "Nom" based on the other collumns
     # So we remove the column "Nom" from the data and store it in a variable
 
-    labels = y_data_names
+    labels = y_data
     print("Labels loaded")
 
     # We create a model with 3 layers
@@ -32,8 +32,8 @@ def jsp(x_data_names=None, y_data_names=None):
     normalizer = preprocessing.Normalization()
     print("Normalization layer created")
 
-    # Select data for training ,Code de la circonscription, % Abs/Ins
-    data = x_data_names
+    # Select data for training
+    data = x_data
     print("Data selected")
 
     # We adapt the normalization layer to the data
@@ -45,11 +45,16 @@ def jsp(x_data_names=None, y_data_names=None):
     print("Model created")
 
     # We train the model with 20 epochs
+    print("Training model...")
     dnn_model.fit(
         data, labels,
         validation_split=0.2,
-        verbose=1, epochs=1000)
+        verbose=0, epochs=500)
     print("Model trained")
+
+    # Evaluate the model
+    results = dnn_model.evaluate(data, labels, verbose=0)
+    print("Results :", results)
 
     # Save the model
     dnn_model.save("./model/model.h5")
