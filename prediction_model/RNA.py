@@ -5,10 +5,10 @@ from tensorflow.keras import layers
 from tensorflow.keras.layers.experimental import preprocessing
 
 
-def jsp(x_data=None, y_data=None):
-    print("----------------------- jsp -----------------------")
-    # The goal is to predict collumn "Nom" based on the other collumns
-    # So we remove the column "Nom" from the data and store it in a variable
+def reseau_neurones_artificiels(x_data=None, y_data=None):
+    print("----------------------- réseau de neurones artificiels  -----------------------")
+    # réseau de neurones artificiels (multi-layer perceptron) avec normalisation des données
+    # et optimisation par la rétropropagation du gradient (backpropagation).
 
     labels = y_data
     print("Labels loaded")
@@ -59,4 +59,4 @@ def jsp(x_data=None, y_data=None):
     # Save the model
     dnn_model.save("./model/model.h5")
 
-    print(" ----------------------- Fin jsp -----------------------")
+    print(" ----------------------- Fin réseau de neurones artificiels  -----------------------")
