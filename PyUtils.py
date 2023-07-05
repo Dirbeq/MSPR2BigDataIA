@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import ConfusionMatrixDisplay, confusion_matrix
 from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_score
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import LabelEncoder, StandardScaler
 
 
 def perform_on_model(model, x_data, y_data, test_size=0.2):
@@ -90,10 +90,10 @@ def data_preprocessing(data, preprocessing=True):
         y_data = label_encoder.fit_transform(y_data)
 
         # Perform outlier detection and handling
-        # You can use appropriate techniques like IQR or Z-score to identify and handle outliers
+        # TODO maybe
 
         # Perform feature scaling or normalization
-        # scaler = StandardScaler()
-        # x_data = scaler.fit_transform(x_data)
+        scaler = StandardScaler()
+        x_data = scaler.fit_transform(x_data)
 
     return x_data, y_data
