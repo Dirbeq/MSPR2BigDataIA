@@ -1,11 +1,26 @@
 import numpy
+import pandas as pd
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
 from tensorflow.keras.layers.experimental import preprocessing
 
+from PyUtils import data_preprocessing
 
-def reseau_neurones_artificiels(x_data=None, y_data=None):
+
+def reseau_neurones_artificiels():
+    # Read data from csv file
+    data = pd.read_csv('./data/data.csv', on_bad_lines='skip', sep=",", index_col=1)
+
+    x_data, y_data = data_preprocessing(data=data, preprocessing=False)
+
+    # y_data_names contains value as string, we need to convert it to int
+    y_data = y_data.replace('EG', 0)
+    y_data = y_data.replace('G', 1)
+    y_data = y_data.replace('C', 2)
+    y_data = y_data.replace('D', 3)
+    y_data = y_data.replace('ED', 4)
+
     print("----------------------- réseau de neurones artificiels  -----------------------")
     # réseau de neurones artificiels (multi-layer perceptron) avec normalisation des données
     # et optimisation par la rétropropagation du gradient (backpropagation).
