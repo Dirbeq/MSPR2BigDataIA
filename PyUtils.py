@@ -46,10 +46,6 @@ def perform_on_model(model, x_data, y_data, test_size=0.2):
 
 
 def calculate_scores(y_true, y_pred, label_encoder, model_name):
-    # Inverse transform the encoded labels to original labels
-    y_true = label_encoder.inverse_transform(y_true)
-    y_pred = label_encoder.inverse_transform(y_pred)
-
     print('Accuracy: {}'.format(round(accuracy_score(y_true, y_pred), 2)))
     print('Precision: {}'.format(round(precision_score(y_true, y_pred, average='weighted', zero_division=0), 2)))
     print('Recall: {}'.format(round(recall_score(y_true, y_pred, average='weighted', zero_division=0), 2)))
@@ -88,6 +84,9 @@ def data_preprocessing(data, preprocessing=True):
         # Encode categorical labels
         label_encoder = LabelEncoder()
         y_data = label_encoder.fit_transform(y_data)
+
+        print("Encoded labels:")
+        print(label_encoder.classes_, '->', label_encoder.transform(label_encoder.classes_), '\n')
 
         # Perform outlier detection and handling
         # TODO maybe
