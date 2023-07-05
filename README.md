@@ -1,7 +1,11 @@
 # MSPR 2 Big data et AI aka analyse de données
 
+![flowchart du program](Flowchart.png)
+
 ## 1. Utilisation
+
 ### 1.1. Prérequis
+
 * Cloner le projet
 * Avoir python 3.10 d'installé
 * Créer un environnement virtuel avec

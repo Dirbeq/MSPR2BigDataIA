@@ -9,24 +9,29 @@ from prediction_model.RNA import reseau_neurones_artificiels
 # Read data from csv file
 data = pd.read_csv('./data/data.csv', on_bad_lines='skip', sep=",", index_col=1)
 
+# Perform data preprocessing
 x_data, y_data = data_preprocessing(data=data)
 
 if __name__ == '__main__':
+    # Perform evaluation on Random Forest Classifier
     perform_on_model(x_data=x_data, y_data=y_data,
                      model=RandomForestClassifier(n_estimators=100, random_state=42))
 
     print("\n")
 
+    # Perform evaluation on Support Vector Classifier
     perform_on_model(x_data=x_data, y_data=y_data,
                      model=SVC(verbose=False, random_state=42, probability=True))
 
     print("\n")
 
+    # Perform evaluation on Logistic Regression
     perform_on_model(x_data=x_data, y_data=y_data,
                      model=LogisticRegression(max_iter=300))
 
     print("\n")
 
+    # Perform evaluation on Artificial Neural Network
     reseau_neurones_artificiels()
 
     # # Anomaly detection via Isolation Forest
