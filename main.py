@@ -15,19 +15,19 @@ x_data, y_data = data_preprocessing(data=data)
 if __name__ == '__main__':
     # Perform evaluation on Random Forest Classifier
     perform_on_model(x_data=x_data, y_data=y_data,
-                     model=RandomForestClassifier(n_estimators=100, random_state=42))
+                     model=RandomForestClassifier(n_estimators=100, random_state=None))
 
     print("\n")
 
     # Perform evaluation on Support Vector Classifier
     perform_on_model(x_data=x_data, y_data=y_data,
-                     model=SVC(verbose=False, random_state=42, probability=True))
+                     model=SVC(verbose=False, random_state=None, probability=True))
 
     print("\n")
 
     # Perform evaluation on Logistic Regression
     perform_on_model(x_data=x_data, y_data=y_data,
-                     model=LogisticRegression(max_iter=300))
+                     model=LogisticRegression(max_iter=400))
 
     print("\n")
 

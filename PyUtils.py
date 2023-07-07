@@ -7,7 +7,7 @@ from sklearn.preprocessing import LabelEncoder, StandardScaler
 
 
 # Function to perform evaluation on a machine learning model
-def perform_on_model(model, x_data, y_data, test_size=0.2):
+def perform_on_model(model, x_data, y_data, test_size=0.25):
     # Split the data into features (x_data) and labels (y_data)
     X = x_data
     y = y_data
