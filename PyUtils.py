@@ -45,39 +45,40 @@ def perform_on_model(model, x_data, y_data, test_size=0.25):
 
     # Calculate evaluation scores on the test set
     print("Calculating scores on the test set...")
-    calculate_scores(y_test, y_pred_test, label_encoder, model_name=model_name)
+    calculate_scores(y_test, y_pred_test, label_encoder, model_name=model_name, on_test_set=True)
 
     print(f"----------------------- End {model_name} -----------------------")
 
 
 # Function to calculate evaluation scores (accuracy, precision, recall, F1 score)
-def calculate_scores(y_true, y_pred, label_encoder, model_name):
+def calculate_scores(y_true, y_pred, label_encoder, model_name, on_test_set=False):
     print('Accuracy: {}'.format(round(accuracy_score(y_true, y_pred), 2)))
     print('Precision: {}'.format(round(precision_score(y_true, y_pred, average='weighted'), 2)))
     print('Recall: {}'.format(round(recall_score(y_true, y_pred, average='weighted'), 2)))
     print('F1 score: {}'.format(round(f1_score(y_true, y_pred, average='weighted'), 2)))
 
     # Plot the confusion
-    plot_confusion_matrix(y_true, y_pred, label_encoder.classes_, model_name)
+    if on_test_set:
+        plot_confusion_matrix(y_true, y_pred, label_encoder.classes_, model_name)
 
 
 # Function to plot the confusion matrix
 def plot_confusion_matrix(y_true, y_pred, labels, model_name):
-    # Calculate the confusion matrix
-    cm = confusion_matrix(y_true, y_pred)
-
-    # Create a figure and axis for the confusion matrix plot
-    _, ax = plt.subplots(figsize=(4, 4))
-
-    # Display the confusion matrix using ConfusionMatrixDisplay
-    disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=labels)
-    disp.plot(cmap="Blues", values_format=".2f", ax=ax, colorbar=False)
-
-    # Set the title for the confusion matrix plot
-    plt.title("Confusion matrix for " + model_name)
-
-    # Show the plot
-    plt.show()
+    # # Calculate the confusion matrix
+    # cm = confusion_matrix(y_true, y_pred)
+    #
+    # # Create a figure and axis for the confusion matrix plot
+    # _, ax = plt.subplots(figsize=(4, 4))
+    #
+    # # Display the confusion matrix using ConfusionMatrixDisplay
+    # disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=labels)
+    # disp.plot(cmap="Blues", values_format=".2f", ax=ax, colorbar=False)
+    #
+    # # Set the title for the confusion matrix plot
+    # plt.title("Confusion matrix for " + model_name)
+    #
+    # # Show the plot
+    # plt.show()
 
     # Calculate the normalized confusion matrix
     cm = confusion_matrix(y_true, y_pred, normalize="true")

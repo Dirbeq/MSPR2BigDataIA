@@ -7,7 +7,7 @@ from PyUtils import data_preprocessing, perform_on_model
 from prediction_model.RNA import reseau_neurones_artificiels
 
 # Read data from csv file
-data = pd.read_csv('./data/data.csv', on_bad_lines='skip', sep=",", index_col=1)
+data = pd.read_csv('./data/data_departement.csv', on_bad_lines='skip', sep=",", index_col=1)
 
 # Perform data preprocessing
 x_data, y_data = data_preprocessing(data=data)
