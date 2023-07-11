@@ -1,10 +1,11 @@
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
 
 from PyUtils import data_preprocessing, perform_on_model
-from prediction_model.RNA import reseau_neurones_artificiels
 
 # Read data from csv file
 data = pd.read_csv('./data/data_departement.csv', on_bad_lines='skip', sep=",", index_col=1)
@@ -31,8 +32,16 @@ if __name__ == '__main__':
 
     print("\n")
 
-    # Perform evaluation on Artificial Neural Network
-    reseau_neurones_artificiels()
+    # Perform evaluation on Linear Discriminant Analysis
+    perform_on_model(x_data=x_data, y_data=y_data,
+                        model=LinearDiscriminantAnalysis())
+
+    print("\n")
+
+    # Perform evaluation on K-Nearest Neighbors
+    perform_on_model(x_data=x_data, y_data=y_data,
+                        model=KNeighborsClassifier(n_neighbors=5))
+
 
     # # Anomaly detection via Isolation Forest
     # isolation_forest(x_data_names=x_data_names, y_data_names=y_data_names)
